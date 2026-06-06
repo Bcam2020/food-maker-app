@@ -201,6 +201,3 @@ https://www.adobe.com/express/create/logo
 Icons:
 Free icons obtained from Flaticon.
 https://www.flaticon.com/
-
-This repository was created via GitHub Classroom for the MobComp Assessment assignment.
-GitHub Classroom Repository
