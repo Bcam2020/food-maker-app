@@ -1,6 +1,14 @@
 # Food Maker App
 
-A comprehensive mobile application built with .NET MAUI that allows users to search for, create, and share recipes while interacting with a vibrant community. Designed with both beginners and advanced users in mind, the app provides free recipes—even if you have only one ingredient at home—and offers a robust community where you can publish your own recipes, add friends, and comment on recipes. With a focus on exceptional UI/UX design, accessibility, and native hardware integration, this project exemplifies best practices and high-quality development.
+A cross-platform mobile application built with .NET MAUI that allows users to browse, create, and share recipes within an interactive community. Designed for cooking enthusiasts of all levels, the app helps users find recipes based on the ingredients they have available, contribute their own creations, and engage with a community of fellow cooks. Built with a focus on responsive UI/UX, accessibility (WCAG-aligned), and native hardware integration.
+
+## Tech Stack
+
+- **.NET MAUI** — Cross-platform mobile framework (C#)
+- **Firebase Authentication** — User login and registration
+- **Cloud Firestore** — Real-time data storage for recipes, comments, and profiles
+- **SQLite (sqlite-net-pcl)** — Local data persistence
+- **XAML** — UI markup with dynamic theming
 
 ## Table of Contents
 
@@ -13,176 +21,123 @@ A comprehensive mobile application built with .NET MAUI that allows users to sea
 - [Accessibility](#accessibility)
 - [Mobile Hardware Integration](#mobile-hardware-integration)
 - [Code Structure and Quality](#code-structure-and-quality)
-- [GitHub Repository and Commit History](#github-repository-and-commit-history)
 - [License](#license)
 - [Contributors](#contributors)
 - [References](#references)
 
 ## Project Description
 
-Food Maker App is designed for cooking enthusiasts who may have limited ingredients at home yet still want to prepare delicious meals. This application provides a full-featured platform to:
+Food Maker App is designed for cooking enthusiasts who may have limited ingredients at home yet still want to prepare delicious meals. The application provides a full-featured platform to:
 
-- **Browse Recipes:**  
-  Explore a dynamic community feed where you can find recipes tailored for various ingredient availability.
-
-- **Create and Manage Recipes:**  
-  Submit your own recipes with detailed instructions, ingredient lists, and photos—even if you only have one ingredient.
-
-- **Community Interaction:**  
-  Engage with a vibrant community by publishing your recipes, adding friends, and commenting on others' recipes.
-
-- **Hardware Integration:**  
-  Utilize native mobile features such as the camera, flashlight, location services, haptic feedback, and text-to-speech for an enriched user experience.
-
-- **Dynamic Theming and Accessibility:**  
-  Customize the interface with dark/light modes and adjustable text sizes, while comprehensive accessibility enhancements ensure the app is usable for everyone.
+- **Browse Recipes:** Explore a dynamic community feed tailored to varying ingredient availability.
+- **Create and Manage Recipes:** Submit recipes with detailed instructions, ingredient lists, and photos — even with a single ingredient on hand.
+- **Community Interaction:** Publish recipes, add friends, and comment on others' creations.
+- **Hardware Integration:** Leverage native mobile features including camera, flashlight, location services, haptic feedback, and text-to-speech.
+- **Dynamic Theming and Accessibility:** Dark/light modes, adjustable text sizes, and accessibility enhancements ensuring the app is usable for everyone.
 
 ## Features
 
-- **Dynamic Theming & Responsive UI:**  
-  Uses dynamic resources for colors and fonts to seamlessly support dark/light modes and adjustable text sizes, providing an outstanding user experience across all devices.
+- **Dynamic Theming & Responsive UI:** Uses dynamic resources for colors and fonts to support dark/light modes and adjustable text sizes across all device sizes.
 
-- **Accessibility Enhancements:**  
-  Comprehensive use of SemanticProperties (Description, Hint, HeadingLevel) across every page and custom control ensures that the app meets WCAG guidelines and is fully accessible to users with disabilities.
+- **Accessibility Enhancements:** Comprehensive use of SemanticProperties (Description, Hint, HeadingLevel) across every page and custom control, aligned with WCAG guidelines.
 
-- **User Authentication:**  
-  Secure Firebase Authentication for safe and reliable user login and registration.
+- **User Authentication:** Firebase Authentication for secure user login and registration.
 
-- **Recipe Management & CSV Parsing:**  
-  Submit, edit, and delete recipes with detailed instructions and ingredient lists. A custom CSV parser loads sample recipe data, ensuring even users with minimal ingredients have access to recipes.
+- **Recipe Management & CSV Parsing:** Submit, edit, and delete recipes with detailed instructions and ingredient lists. A custom CSV parser loads sample recipe data so users with minimal ingredients still have options.
 
-- **Community Interaction:**  
-  Enjoy a dynamic community feed that updates in real time. Users can view, comment, and interact with recipes, enhancing the social experience.
+- **Community Interaction:** Real-time community feed where users can view, comment, and interact with recipes.
 
-- **Device Compatibility:**  
-  The app is fully compatible with Pixel Tablet and Pixel 7 Pro, both running Android API 35.
+- **Device Compatibility:** Tested on Pixel Tablet and Pixel 7 Pro running Android API 35.
 
-- **Mobile Hardware Integration:**  
+- **Mobile Hardware Integration:**
   - **Camera:** Capture or select images for recipes.
-  - **Flashlight:** A hidden toggle for extra interactivity.
+  - **Flashlight:** Hidden toggle in settings.
   - **Location Services:** Map nearby grocery stores with real-time location data.
-  - **Haptic Feedback:** Provides tactile responses for enhanced interaction.
+  - **Haptic Feedback:** Tactile responses on key interactions.
   - **Text-to-Speech:** Reads out recipe details for users with visual impairments.
 
-- **Custom Navigation Controls:**  
-  Consistent and intuitive navigation is achieved through custom controls like StadiumTopBar and StadiumBottomBar.
+- **Custom Navigation Controls:** Reusable controls (StadiumTopBar, StadiumBottomBar) provide consistent navigation across the app.
 
 ## Installation and Setup
 
 1. **Clone the Repository:**
 
-   ```bash
-   git clone https://github.com/ManMetMobComp/mobcomp-assessment-Bcam2020.git
-   cd mobcomp-assessment-Bcam2020
+```bash
+   git clone https://github.com/Bcam2020/food-maker-app.git
+   cd food-maker-app
+```
 
-2. Open the Project in Visual Studio or Your Preferred IDE:
-Ensure you have the latest .NET MAUI workload installed.
+2. **Open the Project in Visual Studio:** Ensure you have the latest .NET MAUI workload installed.
 
-3. Restore NuGet Packages:
-Visual Studio should automatically restore the necessary packages when you open the solution. If not, run:
+3. **Restore NuGet Packages:** Visual Studio will restore packages automatically. If not, run:
 
-bash
-Copy
-dotnet restore
-4. Build and Run the App:
-Select your target platform (Android, iOS, or Windows) and run the application.
+```bash
+   dotnet restore
+```
+
+4. **Build and Run:** Select your target platform (Android, iOS, or Windows) and run the application. Firebase configuration files are required and not included in this repository — see the Firebase Integration section.
 
 ## Usage
 
-Home Page:
-The home screen offers quick navigation to key sections like Ingredients, Recipes, Community, and Profile via custom navigation bars.
+**Home Page:** Quick navigation to Ingredients, Recipes, Community, and Profile via custom navigation bars.
 
-Recipe Creation:
-On the Ingredients page, users add individual ingredients. The Add Recipe page allows users to submit a complete recipe with instructions and a photo.
+**Recipe Creation:** On the Ingredients page, users add individual ingredients. The Add Recipe page allows users to submit a complete recipe with instructions and a photo.
 
-Community Interaction:
-The Community page displays recipes from all users. Tapping a recipe card navigates to details and comments, while interactive elements like comment buttons enhance engagement.
+**Community Interaction:** The Community page displays recipes from all users. Tapping a recipe card navigates to details and comments.
 
-User Profile:
-Manage your profile information, view your created recipes and favorites, and update your profile picture.
+**User Profile:** Manage profile information, view created recipes and favourites, update profile picture.
 
-Map Feature:
-The Map page uses your location to display nearby grocery stores on an interactive map.
+**Map Feature:** The Map page uses location data to display nearby grocery stores on an interactive map.
 
 ## Page Behaviors and Rules
 
-Ingredients Page:
-Users can add and remove ingredients using intuitive input fields and buttons. Input validation ensures only valid data is accepted.
+**Ingredients Page:** Users can add and remove ingredients using intuitive input fields and buttons. Input validation ensures only valid data is accepted.
 
-Add Recipe Page:
-Includes validation for recipe name, ingredients, and instructions. Users can attach photos via the camera or gallery, with errors handled gracefully.
+**Add Recipe Page:** Includes validation for recipe name, ingredients, and instructions. Users can attach photos via camera or gallery, with errors handled gracefully.
 
-Community Page:
-Displays recipe cards with user details, recipe information, images, and recent comments. Interactive elements allow users to view comments or navigate to further details.
+**Community Page:** Displays recipe cards with user details, recipe information, images, and recent comments. Interactive elements allow users to view comments or navigate to further details.
 
-Comments Page:
-Enables users to view and post comments on a recipe. Input validation ensures that blank comments are not submitted.
+**Comments Page:** Enables users to view and post comments on a recipe. Input validation prevents blank comment submissions.
 
 ## Firebase Integration and Data Handling
 
-Authentication & Data Storage:
-Firebase is used to securely manage user authentication and store data, including recipes and user profiles.
+**Authentication & Data Storage:** Firebase securely manages user authentication and stores data including recipes and user profiles.
 
-Firestore Services:
-All CRUD operations for recipes, comments, and profiles are performed through Firestore services.
+**Firestore Services:** All CRUD operations for recipes, comments, and profiles are performed through dedicated Firestore service classes.
 
-CSV Parsing:
-A custom CSV loader parses sample recipe data, which populates the community feed.
+**CSV Parsing:** A custom CSV loader parses sample recipe data which populates the community feed at startup.
 
 ## Accessibility
 
-The app is built to be accessible:
+The app is built with accessibility as a first-class concern:
 
-Semantic Properties:
-All controls have SemanticProperties.Description, SemanticProperties.Hint, and SemanticProperties.HeadingLevel set to assist screen readers.
+**Semantic Properties:** All controls have SemanticProperties.Description, SemanticProperties.Hint, and SemanticProperties.HeadingLevel set to assist screen readers.
 
-Screen Reader Compliance:
-The design follows WCAG guidelines, ensuring that users with disabilities can navigate and interact with the app efficiently.
+**Screen Reader Compliance:** The design follows WCAG guidelines, ensuring users with disabilities can navigate and interact with the app efficiently.
 
-Testing Accessibility:
-Enable your device's screen reader (TalkBack on Android or VoiceOver on iOS) and navigate through the app to experience descriptive prompts for each control.
+**Testing Accessibility:** Enable your device's screen reader (TalkBack on Android or VoiceOver on iOS) and navigate through the app to experience descriptive prompts for each control.
 
 ## Mobile Hardware Integration
 
-Camera:
-Capture or select images for recipes.
+**Camera:** Capture or select images for recipes.
 
-Flashlight:
-A hidden flashlight toggle is available in the settings.
+**Flashlight:** Hidden flashlight toggle available in settings.
 
-Location Services:
-Uses real-time location data to display nearby grocery stores on the Map page.
+**Location Services:** Real-time location data displays nearby grocery stores on the Map page.
 
-Haptic Feedback:
-Provides tactile responses on interactions such as button taps and gestures.
+**Haptic Feedback:** Tactile responses on button taps and gestures.
 
-Text-to-Speech:
-Reads out recipe details to enhance accessibility for visually impaired users.
+**Text-to-Speech:** Reads out recipe details to enhance accessibility for visually impaired users.
 
 ## Code Structure and Quality
 
-Separation of Concerns:
-The UI is defined in XAML files, and the business logic is in code-behind files, promoting a clean and maintainable codebase.
+**Separation of Concerns:** UI is defined in XAML files; business logic lives in code-behind and dedicated service classes.
 
-Custom Controls:
-Reusable controls like StadiumTopBar and StadiumBottomBar are used throughout the app for consistent navigation.
+**Custom Controls:** Reusable controls (StadiumTopBar, StadiumBottomBar) provide consistent navigation across the app.
 
-Dynamic Resources:
-Colors, fonts, and themes are managed using dynamic resources, which ensures the app adapts easily to theming changes.
+**Dynamic Resources:** Colours, fonts, and themes are managed via dynamic resources, supporting seamless theme changes at runtime.
 
-Robust Error Handling:
-Comprehensive error handling and input validation are implemented to ensure a smooth user experience.
-
-## GitHub Repository and Commit History
-
-Regular Commits:
-The repository is updated frequently with detailed commit messages, documenting progress and feature enhancements.
-
-Comprehensive Documentation:
-This README, along with additional documentation in the repository, provides a thorough overview of the project.
-
-Version Control Best Practices:
-A well-organized commit history and clear branching strategy demonstrate professional project management.
+**Robust Error Handling:** Comprehensive error handling and input validation throughout the codebase.
 
 ## License
 
@@ -190,14 +145,10 @@ This project is licensed under the MIT License.
 
 ## Contributors
 
-Ben C. – https://github.com/Bcam2020
+Ben Camphor – https://github.com/Bcam2020
 
 ## References
 
-Logo:
-Logo created using Adobe Express.
-https://www.adobe.com/express/create/logo
+**Logo:** Created using Adobe Express — https://www.adobe.com/express/create/logo
 
-Icons:
-Free icons obtained from Flaticon.
-https://www.flaticon.com/
+**Icons:** Free icons obtained from Flaticon — https://www.flaticon.com/
