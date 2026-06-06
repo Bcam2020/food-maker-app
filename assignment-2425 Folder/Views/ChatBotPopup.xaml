@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ct:Popup x:Class="assignment_2425.ChatBotPopup"
+          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:ct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+          xmlns:vm="clr-namespace:assignment_2425.ViewModels"
+          xmlns:converters="clr-namespace:assignment_2425.Converters"
+          SemanticProperties.Description="Chat bot popup for assistance">
+    <ct:Popup.Resources>
+        <ResourceDictionary>
+            <converters:ChatBubbleColorConverter x:Key="ChatBubbleColorConverter" />
+        </ResourceDictionary>
+    </ct:Popup.Resources>
+    <Frame BackgroundColor="{DynamicResource AppFrameBackgroundColor}" CornerRadius="10" Padding="20" Margin="20"
+         SemanticProperties.Description="Chat bot popup frame">
+        <VerticalStackLayout Spacing="10">
+            <Label Text="How can I help you?" FontAttributes="Bold" FontSize="{DynamicResource GlobalFontSize}" HorizontalOptions="Center" TextColor="{DynamicResource AppTextColor}" SemanticProperties.Description="Chat bot prompt"/>
+            <CollectionView ItemsSource="{Binding ChatMessages}" HeightRequest="200" SemanticProperties.Description="Chat messages list">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BackgroundColor="{Binding Sender, Converter={StaticResource ChatBubbleColorConverter}}" CornerRadius="10"
+                   SemanticProperties.Description="Chat message">
+                            <Label Text="{Binding Content}" TextColor="{DynamicResource AppTextColor}" FontSize="{DynamicResource GlobalFontSize}" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" HorizontalOptions="Center" />
+            <Entry Text="{Binding CurrentInput, Mode=TwoWay}" Placeholder="Type your message here..." FontSize="{DynamicResource GlobalFontSize}" TextColor="{DynamicResource AppTextColor}" BackgroundColor="{DynamicResource AppFrameBackgroundColor}" SemanticProperties.Hint="Enter your message"/>
+            <Button Text="Send" Command="{Binding SendCommand}" FontSize="{DynamicResource GlobalFontSize}" SemanticProperties.Description="Send message button"/>
+        </VerticalStackLayout>
+    </Frame>
+</ct:Popup>
