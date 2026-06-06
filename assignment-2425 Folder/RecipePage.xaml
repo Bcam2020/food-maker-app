@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.RecipePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Matched Recipes"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Recipe page showing matched recipes">
+    <!-- Page resources -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryButtonBrush">Black</Color>
+            <Color x:Key="SecondaryButtonBrush">#FFA500</Color>
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryButtonBrush}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <Setter.Value>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.95" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource SecondaryButtonBrush}" />
+            </Style>
+            <Style x:Key="PageLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+            </Style>
+            <Style x:Key="RecipeCardStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Margin" Value="0,5" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BorderColor" Value="#DDD" />
+            </Style>
+            <Style x:Key="SectionHeaderStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+            </Style>
+            <Style x:Key="SubTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!-- Main layout -->
+    <Grid Padding="20">
+        <!-- Recipe list -->
+        <CollectionView x:Name="RecipesCollectionView"
+                        ItemsSource="{Binding Recipes}"
+                        SelectionMode="None"
+                        VerticalOptions="FillAndExpand"
+                        Margin="0,10,0,60"
+                        SemanticProperties.Description="List of matched recipes">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Style="{StaticResource RecipeCardStyle}"
+                           SemanticProperties.Description="Recipe card">
+                        <VerticalStackLayout Spacing="8">
+                            <!-- Recipe name -->
+                            <Label Text="{Binding Name}"
+                                   FontSize="{DynamicResource GlobalFontSize}"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource AppTextColor}"
+                                   SemanticProperties.Description="Recipe name" />
+                            <!-- Favorite button -->
+                            <Button Text="Favorite"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    CommandParameter="{Binding .}"
+                                    Clicked="OnFavoriteClicked"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    SemanticProperties.Description="Favorite button" />
+                            <!-- Ingredients header -->
+                            <Label Text="Ingredients:" 
+                                   Style="{StaticResource SectionHeaderStyle}"
+                                   SemanticProperties.Description="Ingredients label" />
+                            <!-- Ingredients list -->
+                            <CollectionView ItemsSource="{Binding Ingredients}"
+                                            Margin="0,0,0,5"
+                                            SemanticProperties.Description="Ingredients list">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding .}"
+                                               Style="{StaticResource SubTextStyle}"
+                                               Margin="0,0,0,2"
+                                               SemanticProperties.Description="Ingredient" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <!-- Instructions header -->
+                            <Label Text="Instructions:" 
+                                   Style="{StaticResource SectionHeaderStyle}"
+                                   SemanticProperties.Description="Instructions label" />
+                            <!-- Recipe instructions -->
+                            <Label Text="{Binding Instructions}"
+                                   Style="{StaticResource SubTextStyle}"
+                                   SemanticProperties.Description="Recipe instructions" />
+                            <!-- Read instructions button -->
+                            <Frame CornerRadius="20"
+                                   Padding="0"
+                                   HasShadow="False"
+                                   BackgroundColor="Transparent"
+                                   SemanticProperties.Description="Read instructions button">
+                                <Image Source="volume.png"
+                                       WidthRequest="32"
+                                       HeightRequest="32"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       SemanticProperties.Description="Volume icon. Double tap to read instructions">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnReadInstructionsClicked"
+                                                              CommandParameter="{Binding .}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Frame>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!-- Loading indicator -->
+        <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                           IsVisible="{Binding IsLoading}" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" 
+                           WidthRequest="50"
+                           HeightRequest="50"
+                           SemanticProperties.Description="Loading indicator" />
+        <!-- Back button -->
+        <Frame CornerRadius="20"
+               Padding="0"
+               BackgroundColor="Transparent"
+               VerticalOptions="End"
+               HorizontalOptions="Center"
+               Margin="0,10"
+               SemanticProperties.Description="Back button container">
+            <Button x:Name="BackButton"
+                    Text="Back"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Clicked="OnBackClicked"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    SemanticProperties.Description="Back button" />
+        </Frame>
+    </Grid>
+</ContentPage>

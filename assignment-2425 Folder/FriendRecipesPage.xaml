@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.FriendRecipesPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:assignment_2425.Controls"
+             xmlns:converters="clr-namespace:assignment_2425.Converters"
+             Title="Friend's Recipes"
+             Shell.NavBarIsVisible="False"
+             Background="{DynamicResource AppBackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="SecondaryButtonBrush">#FFA500</Color>
+            <Style x:Key="RecipeCardStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="Margin" Value="15"/>
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="BorderColor" Value="#DDD"/>
+            </Style>
+            <Style x:Key="ActionButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource SecondaryButtonBrush}"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Padding" Value="10,5"/>
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+            </Style>
+            <Style x:Key="SectionHeaderStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}"/>
+                <Setter Property="Margin" Value="0,10,0,5"/>
+            </Style>
+            <Style x:Key="ItemLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}"/>
+                <Setter Property="Margin" Value="0,0,0,5"/>
+            </Style>
+            <!-- Converter to split string into a list -->
+            <converters:StringToListConverter x:Key="StringToListConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout>
+        <!-- Top navigation bar -->
+        <controls:StadiumTopBar Title="Friend's Recipes"
+                                  AbsoluteLayout.LayoutBounds="0.5,0,1,40"
+                                  AbsoluteLayout.LayoutFlags="WidthProportional,PositionProportional"/>
+        <!-- Main content with refresh -->
+        <RefreshView x:Name="RecipesRefreshView"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All"
+                     Margin="20,80,20,90"
+                     Refreshing="OnRefresh">
+            <CollectionView x:Name="FriendRecipesCollectionView" ItemsSource="{Binding FriendRecipes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource RecipeCardStyle}">
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="{Binding Name}"
+                                       FontSize="{DynamicResource GlobalFontSize}"
+                                       FontAttributes="Bold"
+                                       TextColor="{DynamicResource AppTextColor}"/>
+                                <Label Text="Ingredients" Style="{StaticResource SectionHeaderStyle}"/>
+                                <CollectionView ItemsSource="{Binding Ingredients, Converter={StaticResource StringToListConverter}}"
+                                                Margin="0,0,0,10">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Label Text="{Binding .}" Style="{StaticResource ItemLabelStyle}"/>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                <Label Text="Instructions" Style="{StaticResource SectionHeaderStyle}"/>
+                                <CollectionView ItemsSource="{Binding Instructions, Converter={StaticResource StringToListConverter}}"
+                                                Margin="0,0,0,10">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Label Text="{Binding .}" Style="{StaticResource ItemLabelStyle}"/>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                <Image Source="{Binding ImageUrl}"
+                                       HeightRequest="150"
+                                       Aspect="AspectFill"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <!-- Bottom navigation bar -->
+        <controls:StadiumBottomBar AbsoluteLayout.LayoutBounds="0.5,1,1,90"
+                                    AbsoluteLayout.LayoutFlags="WidthProportional,PositionProportional"/>
+        <!-- Back button -->
+        <Button Text="Back"
+                Style="{StaticResource ActionButtonStyle}"
+                AbsoluteLayout.LayoutBounds="0.5,0.85,80,40"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Clicked="OnBackClicked"/>
+    </AbsoluteLayout>
+</ContentPage>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:assignment_2425"
+             xmlns:controls="clr-namespace:assignment_2425.Controls"
+             Title="Home"
+             Background="{DynamicResource AppBackgroundColor}"
+             Shell.NavBarIsVisible="False"
+             SemanticProperties.Description="Home page. Tap the pan image to navigate to the ingredients page and explore recipes.">
+
+    <!-- Main container for positioning elements -->
+    <AbsoluteLayout>
+
+        <!-- Top navigation bar -->
+        <controls:StadiumTopBar Title="Home"
+                             AbsoluteLayout.LayoutBounds="0.5,0,-1,50"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             SemanticProperties.Description="Top navigation bar" />
+
+        <!-- Center section with clickable pan image and label -->
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+            <!-- Image acting as a button to navigate to the Ingredients page -->
+            <Image Source="pan.png"
+             SemanticProperties.Description="Pan image to navigate to Ingredients Page">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAddIngredientsClicked" />
+                </Image.GestureRecognizers>
+            </Image>
+
+            <!-- Label overlaying the image with a call-to-action -->
+            <Label Text="Click to Cook"
+             HorizontalOptions="Center"
+             VerticalOptions="Center"
+             FontSize="{DynamicResource GlobalFontSize}"
+             FontAttributes="Bold"
+             TextColor="White"
+             Opacity="0.7"
+             AbsoluteLayout.LayoutBounds="0.5,0.35,AutoSize,AutoSize"
+             AbsoluteLayout.LayoutFlags="PositionProportional"
+             SemanticProperties.Description="Call to action: Click to Cook. Navigates to Ingredients Page" />
+        </AbsoluteLayout>
+
+        <!-- Chat bubble control for messaging -->
+        <controls:ChatBubbleControl AbsoluteLayout.LayoutBounds="1,0.5,AutoSize,AutoSize"
+                                  AbsoluteLayout.LayoutFlags="PositionProportional"
+                                  SemanticProperties.Description="Chat bubble control for messaging" />
+
+        <!-- Bottom navigation bar -->
+        <controls:StadiumBottomBar AbsoluteLayout.LayoutBounds="0.5,1,-1,90"
+                               AbsoluteLayout.LayoutFlags="PositionProportional"
+                               SemanticProperties.Description="Bottom navigation bar" />
+    </AbsoluteLayout>
+</ContentPage>

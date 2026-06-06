@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="assignment_2425.Controls.StadiumTopBar"
+             x:Name="topBarControl"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             SemanticProperties.Description="Top navigation bar">
+    <ContentView.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android" Value="0,20,0,0" />
+            <On Platform="iOS" Value="0,30,0,0" />
+        </OnPlatform>
+    </ContentView.Padding>
+    <Frame x:Name="TopBarFrame"
+         Padding="0"
+         CornerRadius="25"
+         BackgroundColor="#FFA500"
+         HeightRequest="40"
+         HasShadow="True"
+         VerticalOptions="Start"
+         HorizontalOptions="FillAndExpand">
+        <Grid ColumnDefinitions="*,Auto" Padding="10,0">
+            <Label Grid.Column="0"
+             Text="{Binding Title, Source={x:Reference topBarControl}}"
+             TextColor="{DynamicResource AppTextColor}"
+             FontAttributes="Bold"
+             FontSize="{DynamicResource GlobalFontSize}"
+             HorizontalOptions="Start"
+             VerticalOptions="Center"
+             Margin="10,0,0,0"
+             SemanticProperties.Description="Page title" />
+            <ImageButton Grid.Column="1"
+                   Source="settings.png"
+                   BackgroundColor="Transparent"
+                   Clicked="OnSettingsClicked"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"
+                   Margin="40,0,10,0"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   SemanticProperties.Description="Settings button"
+                   SemanticProperties.Hint="Double tap to navigate to settings" />
+        </Grid>
+    </Frame>
+</ContentView>

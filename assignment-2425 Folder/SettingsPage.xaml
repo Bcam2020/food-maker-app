@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.SettingsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Settings"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Settings page. Adjust dark mode, flashlight, and text size settings."
+             SemanticProperties.Hint="Use the toggles and radio buttons to change settings.">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
+        <Label Text="Settings"
+           FontSize="30"
+           FontAttributes="Bold"
+           HorizontalOptions="Center"
+           VerticalOptions="Start"
+           Grid.Row="0"
+           TextColor="{DynamicResource AppTextColor}"
+           SemanticProperties.HeadingLevel="Level1"
+           SemanticProperties.Description="Page title: Settings" />
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20"
+                           Spacing="20"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Start">
+                <HorizontalStackLayout Spacing="10"
+                               HorizontalOptions="Center"
+                               SemanticProperties.Description="Toggle dark mode">
+                    <Label Text="Enable Dark Mode"
+                 VerticalOptions="Center"
+                 TextColor="{DynamicResource AppTextColor}"
+                 SemanticProperties.Description="Label: Enable Dark Mode" />
+                    <Switch x:Name="DarkModeSwitch"
+                  Toggled="OnDarkModeToggled"
+                  SemanticProperties.Description="Switch to toggle dark mode" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10"
+                               HorizontalOptions="Center"
+                               SemanticProperties.Description="Toggle flashlight">
+                    <Label Text="Enable Flashlight"
+                 VerticalOptions="Center"
+                 TextColor="{DynamicResource AppTextColor}"
+                 SemanticProperties.Description="Label: Enable Flashlight" />
+                    <Switch x:Name="FlashlightSwitch"
+                  Toggled="OnFlashlightToggled"
+                  SemanticProperties.Description="Switch to toggle flashlight" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10"
+                               HorizontalOptions="Center"
+                               SemanticProperties.Description="Text size selection">
+                    <Label Text="Text Size"
+                 VerticalOptions="Center"
+                 TextColor="{DynamicResource AppTextColor}"
+                 SemanticProperties.Description="Label: Text Size" />
+                    <RadioButton x:Name="SmallTextRadio"
+                       Content="Small"
+                       GroupName="TextSize"
+                       CheckedChanged="OnTextSizeRadioChanged"
+                       TextColor="{DynamicResource AppTextColor}"
+                       SemanticProperties.Description="Radio button: Small text size" />
+                    <RadioButton x:Name="MediumTextRadio"
+                       Content="Medium"
+                       GroupName="TextSize"
+                       CheckedChanged="OnTextSizeRadioChanged"
+                       TextColor="{DynamicResource AppTextColor}"
+                       SemanticProperties.Description="Radio button: Medium text size" />
+                    <RadioButton x:Name="LargeTextRadio"
+                       Content="Large"
+                       GroupName="TextSize"
+                       CheckedChanged="OnTextSizeRadioChanged"
+                       TextColor="{DynamicResource AppTextColor}"
+                       SemanticProperties.Description="Radio button: Large text size" />
+                </HorizontalStackLayout>
+                <Button x:Name="SaveButton"
+                Text="Save Settings"
+                Clicked="OnSaveClicked"
+                BackgroundColor="#FFA500"
+                TextColor="White"
+                CornerRadius="10"
+                Padding="10"
+                FontSize="{DynamicResource GlobalFontSize}"
+                WidthRequest="200"
+                HorizontalOptions="Center"
+                SemanticProperties.Description="Save settings button"
+                SemanticProperties.Hint="Double tap to save settings" />
+                <Button Text="Back to Home"
+                Clicked="OnBackClicked"
+                BackgroundColor="#FFA500"
+                TextColor="White"
+                CornerRadius="10"
+                Padding="10"
+                FontSize="{DynamicResource GlobalFontSize}"
+                WidthRequest="200"
+                HorizontalOptions="Center"
+                SemanticProperties.Description="Back to Home button"
+                SemanticProperties.Hint="Double tap to return to home page" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

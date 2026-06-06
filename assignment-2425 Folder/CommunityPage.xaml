@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.CommunityPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:assignment_2425.Controls"
+             xmlns:converters="clr-namespace:assignment_2425.Converters"
+             Title="Community"
+             Background="{DynamicResource AppBackgroundColor}"
+             Shell.NavBarIsVisible="False"
+             SemanticProperties.Description="Community page displaying recipes shared by all users."
+             SemanticProperties.Hint="Swipe through recipe cards and double tap a card to view comments.">
+    <AbsoluteLayout>
+        <!-- Top bar -->
+        <controls:StadiumTopBar
+            Title="Community"
+            AbsoluteLayout.LayoutBounds="0.5,0,-1,50"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            SemanticProperties.Description="Top navigation bar" />
+        <!-- Main container -->
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+              AbsoluteLayout.LayoutFlags="All"
+              Margin="0,60,0,100"
+              SemanticProperties.Description="Container for community recipes list">
+            <ActivityIndicator x:Name="LoadingIndicator"
+                               IsVisible="False"
+                               IsRunning="False"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               SemanticProperties.Description="Loading indicator" />
+            <CollectionView x:Name="CommunityRecipesCollectionView"
+                            ItemsSource="{Binding CommunityRecipes}"
+                            Margin="0,50,0,0"
+                            SemanticProperties.Description="List of community recipes">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="15" Margin="12"
+                               CornerRadius="12"
+                               HasShadow="True"
+                               BackgroundColor="{DynamicResource AppBackgroundColor}"
+                               BorderColor="#E0E0E0"
+                               SemanticProperties.Description="Recipe card">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <!-- User profile picture -->
+                                <Image Grid.Row="0" Grid.Column="0"
+                                       Source="{Binding UserProfilePicture, FallbackValue='default_profile_picture.png'}"
+                                       WidthRequest="45" HeightRequest="45"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center"
+                                       Margin="5"
+                                       SemanticProperties.Description="User profile picture" />
+                                <!-- Username -->
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       Text="{Binding Username}"
+                                       FontSize="{DynamicResource GlobalFontSize}"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"
+                                       TextColor="{DynamicResource AppTextColor}"
+                                       Margin="5,0,0,0"
+                                       SemanticProperties.Description="Username" />
+                                <!-- Comment button -->
+                                <ImageButton Grid.Row="0" Grid.Column="2"
+                                             Source="comment_icon.png"
+                                             HeightRequest="30" WidthRequest="30"
+                                             BackgroundColor="Transparent"
+                                             Padding="5"
+                                             Clicked="OnCommentClicked"
+                                             CommandParameter="{Binding .}"
+                                             SemanticProperties.Description="Comment button"
+                                             SemanticProperties.Hint="Double tap to view comments" />
+                                <!-- Recipe name -->
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                       Text="{Binding Recipe.Name}"
+                                       FontSize="22"
+                                       FontAttributes="Bold"
+                                       TextColor="{DynamicResource AppTextColor}"
+                                       Margin="0,10,0,0"
+                                       SemanticProperties.HeadingLevel="Level1"
+                                       SemanticProperties.Description="Recipe name" />
+                                <!-- Recipe image -->
+                                <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                       Source="{Binding Recipe.ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="180"
+                                       Margin="0,10,0,10"
+                                       HorizontalOptions="Center"
+                                       SemanticProperties.Description="Recipe image" />
+                                <!-- Ingredients list -->
+                                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                                       Text="{Binding IngredientsString}"
+                                       FontSize="{DynamicResource GlobalFontSize}"
+                                       TextColor="{DynamicResource AppTextColor}"
+                                       Margin="0,5,0,5"
+                                       LineBreakMode="WordWrap"
+                                       SemanticProperties.Description="Ingredients list" />
+                                <!-- Recipe instructions -->
+                                <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                       Text="{Binding Recipe.Instructions}"
+                                       FontSize="{DynamicResource GlobalFontSize}"
+                                       TextColor="{DynamicResource AppTextColor}"
+                                       LineBreakMode="WordWrap"
+                                       Margin="0,5,0,5"
+                                       LineHeight="1.4"
+                                       SemanticProperties.Description="Recipe instructions" />
+                                <!-- Recent comments -->
+                                <StackLayout Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Padding="5"
+                                             SemanticProperties.Description="Recent comments section">
+                                    <Label Text="Recent Comments:"
+                                           FontSize="{DynamicResource GlobalFontSize}"
+                                           FontAttributes="Bold"
+                                           TextColor="{DynamicResource AppTextColor}"
+                                           Padding="0,5,0,3"
+                                           IsVisible="{Binding RecentComments.Count, Converter={StaticResource ZeroToFalseConverter}}"
+                                           SemanticProperties.Description="Recent comments label" />
+                                    <CollectionView ItemsSource="{Binding RecentComments}"
+                                                    SemanticProperties.Description="List of recent comments">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame Padding="8" Margin="4" CornerRadius="10"
+                                                       BackgroundColor="{DynamicResource AppBackgroundColor}"
+                                                       BorderColor="#E0E0E0"
+                                                       SemanticProperties.Description="Comment card">
+                                                    <StackLayout>
+                                                        <Label Text="{Binding UserName}"
+                                                               FontAttributes="Bold"
+                                                               FontSize="13"
+                                                               TextColor="{DynamicResource AppTextColor}"
+                                                               SemanticProperties.Description="Commenter name" />
+                                                        <Label Text="{Binding Text}"
+                                                               FontSize="12"
+                                                               TextColor="{DynamicResource AppTextColor}"
+                                                               SemanticProperties.Description="Comment text" />
+                                                    </StackLayout>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        <!-- Bottom navigation bar -->
+        <controls:StadiumBottomBar
+            AbsoluteLayout.LayoutBounds="0.5,1,-1,90"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            SemanticProperties.Description="Bottom navigation bar" />
+    </AbsoluteLayout>
+</ContentPage>

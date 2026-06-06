@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.FriendsListPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Friends"
+             Background="{DynamicResource AppBackgroundColor}">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="OnBackClicked" Order="Primary" Priority="0" />
+        <ToolbarItem Text="Search" Clicked="OnSearchClicked" Order="Primary" Priority="1" />
+    </ContentPage.ToolbarItems>
+    <StackLayout Padding="10">
+        <CollectionView x:Name="FriendsCollectionView" ItemsSource="{Binding Friends}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="0,5" CornerRadius="8" HasShadow="True"
+                           BackgroundColor="{DynamicResource AppFrameBackgroundColor}">
+                        <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                            <!-- Friend Name Label -->
+                            <Label Grid.Column="0"
+                                   Text="{Binding Name}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="StartAndExpand"
+                                   FontAttributes="Bold"
+                                   FontSize="{DynamicResource GlobalFontSize}"
+                                   TextColor="{DynamicResource AppTextColor}"
+                                   LineBreakMode="TailTruncation"/>
+                            <!-- Buttons Container -->
+                            <StackLayout Grid.Column="1"
+                                         Orientation="Horizontal"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Center"
+                                         Spacing="10">
+                                <!-- View Recipes Button -->
+                                <Button Text="View Recipes"
+                                        CommandParameter="{Binding FriendId}"
+                                        Clicked="OnViewFriendRecipesClicked"
+                                        FontSize="{DynamicResource GlobalFontSize}"
+                                        BackgroundColor="Orange"
+                                        TextColor="{DynamicResource AccentColor}"
+                                        Padding="10"
+                                        Margin="0"/>
+                                <!-- Delete Friend Button -->
+                                <Button Text="Delete"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnDeleteFriendClicked"
+                                        FontSize="{DynamicResource GlobalFontSize}"
+                                        BackgroundColor="Red"
+                                        TextColor="White"
+                                        Padding="10"
+                                        Margin="0"/>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage 
+    x:Class="assignment_2425.CameraPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="CameraPage">
+    <VerticalStackLayout Padding="20" Spacing="20">
+        <!-- Title label -->
+        <Label Text="Capture or Select a Photo"
+               FontSize="20"
+               HorizontalOptions="Center" />
+        <!-- Display captured/selected image -->
+        <Frame Padding="5" BorderColor="Gray" CornerRadius="10">
+            <Image 
+                x:Name="CapturedImage" 
+                WidthRequest="300" 
+                HeightRequest="300" 
+                Aspect="AspectFill"
+                BackgroundColor="LightGray" />
+        </Frame>
+        <!-- Button to capture a photo -->
+        <Button 
+            Text="📷 Take a Photo" 
+            Clicked="OnCapturePhotoClicked"
+            BackgroundColor="Blue"
+            TextColor="White"
+            CornerRadius="10" />
+        <!-- Button to pick a photo from gallery -->
+        <Button 
+            Text="🖼 Choose from Gallery" 
+            Clicked="OnPickPhotoClicked"
+            BackgroundColor="Green"
+            TextColor="White"
+            CornerRadius="10" />
+    </VerticalStackLayout>
+</ContentPage>

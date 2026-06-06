@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="assignment_2425.Controls.ChatBubbleControl"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Frame x:Name="ChatBubbleFrame"
+         Padding="10"
+         BackgroundColor="White"
+         CornerRadius="25"
+         HasShadow="True"
+         Opacity="0.7"
+         HorizontalOptions="End"
+         VerticalOptions="Center">
+        <Grid>
+            <Image x:Name="ChatIcon" Source="chatlogo.png" WidthRequest="40" HeightRequest="40">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnChatIconTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+    </Frame>
+</ContentView>

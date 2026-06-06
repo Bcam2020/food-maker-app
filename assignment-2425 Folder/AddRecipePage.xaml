@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage x:Class="assignment_2425.AddRecipePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:assignment_2425.Controls"
+             Title="Add New Recipe"
+             Shell.NavBarHasShadow="True"
+             Shell.NavBarIsVisible="False"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Add Recipe page. Enter recipe details and attach a photo."
+             SemanticProperties.Hint="Fill in the fields and tap Save Recipe.">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Button and color definitions -->
+            <Color x:Key="PrimaryButtonBrush">Black</Color>
+            <Color x:Key="SecondaryButtonBrush">#FFA500</Color>
+            <Style x:Key="TextFieldStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+                <Setter Property="PlaceholderColor" Value="#757575" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="Margin" Value="0,2,0,10"/>
+                <Setter Property="HeightRequest" Value="44"/>
+            </Style>
+            <Style x:Key="EditorFieldStyle" TargetType="Editor">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+                <Setter Property="PlaceholderColor" Value="#757575" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="Margin" Value="0,2,0,10"/>
+            </Style>
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryButtonBrush}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="14,10" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Margin" Value="0,5,0,0"/>
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <Setter.Value>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.95" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource SecondaryButtonBrush}" />
+            </Style>
+            <Style x:Key="FormCardStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource AppFrameBackgroundColor}" />
+                <Setter Property="BorderColor" Value="Transparent" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout>
+        <!-- Top navigation bar -->
+        <controls:StadiumTopBar Title="Add New Recipe"
+                                AbsoluteLayout.LayoutBounds="0.5,0,1,40"
+                                AbsoluteLayout.LayoutFlags="WidthProportional,PositionProportional"
+                                SemanticProperties.Description="Top navigation bar" />
+        <!-- Scrollable recipe form -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Margin="0,40,0,90"
+                    SemanticProperties.Description="Scroll view for recipe form">
+            <VerticalStackLayout Margin="20" Spacing="20">
+                <Frame Style="{StaticResource FormCardStyle}"
+                       SemanticProperties.Description="Recipe form container">
+                    <VerticalStackLayout Spacing="10">
+                        <!-- Form header -->
+                        <Label Text="Add Your Recipe"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,10"
+                               TextColor="{DynamicResource AppTextColor}"
+                               SemanticProperties.HeadingLevel="Level1"
+                               SemanticProperties.Description="Section title: Add Your Recipe" />
+                        <!-- Recipe Name -->
+                        <Label Text="Recipe Name"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               TextColor="{DynamicResource AppTextColor}"
+                               SemanticProperties.Description="Label for recipe name" />
+                        <Entry x:Name="RecipeNameEntry"
+                               Style="{StaticResource TextFieldStyle}"
+                               Placeholder="Enter recipe name..."
+                               SemanticProperties.Hint="Type the recipe name" />
+                        <Label x:Name="RecipeNameError"
+                               TextColor="Red"
+                               IsVisible="False"
+                               FontSize="14"
+                               SemanticProperties.Description="Error message for recipe name" />
+                        <!-- Ingredients -->
+                        <Label Text="Ingredients"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               TextColor="{DynamicResource AppTextColor}"
+                               SemanticProperties.Description="Label for ingredients" />
+                        <Editor x:Name="RecipeIngredientsEditor"
+                                Style="{StaticResource EditorFieldStyle}"
+                                Placeholder="List the ingredients..."
+                                AutoSize="TextChanges"
+                                HeightRequest="80"
+                                SemanticProperties.Hint="List each ingredient on a new line" />
+                        <Label x:Name="RecipeIngredientsError"
+                               TextColor="Red"
+                               IsVisible="False"
+                               FontSize="14"
+                               SemanticProperties.Description="Error message for ingredients" />
+                        <!-- Instructions -->
+                        <Label Text="Instructions"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               TextColor="{DynamicResource AppTextColor}"
+                               SemanticProperties.Description="Label for instructions" />
+                        <Editor x:Name="RecipeInstructionsEditor"
+                                Style="{StaticResource EditorFieldStyle}"
+                                Placeholder="Write the instructions..."
+                                AutoSize="TextChanges"
+                                HeightRequest="100"
+                                SemanticProperties.Hint="Provide step-by-step instructions" />
+                        <Label x:Name="RecipeInstructionsError"
+                               TextColor="Red"
+                               IsVisible="False"
+                               FontSize="14"
+                               SemanticProperties.Description="Error message for instructions" />
+                        <!-- Attached photo -->
+                        <Label Text="Attached Photo"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               TextColor="{DynamicResource AppTextColor}"
+                               SemanticProperties.Description="Label for attached photo" />
+                        <Frame Padding="0"
+                               CornerRadius="10"
+                               BorderColor="Transparent"
+                               BackgroundColor="Transparent"
+                               HasShadow="False"
+                               SemanticProperties.Description="Recipe photo container">
+                            <Image x:Name="RecipeImage"
+                                   WidthRequest="150"
+                                   HeightRequest="150"
+                                   Aspect="AspectFill"
+                                   BackgroundColor="{DynamicResource AppFrameBackgroundColor}"
+                                   SemanticProperties.Description="Attached recipe photo" />
+                        </Frame>
+                        <!-- Photo and save buttons -->
+                        <HorizontalStackLayout Spacing="10" Margin="0,10,0,0"
+                                               SemanticProperties.Description="Photo and save buttons">
+                            <Button Style="{StaticResource SecondaryButtonStyle}"
+                                    Text="📸 Attach Photo"
+                                    Clicked="OnAttachPhotoClicked"
+                                    SemanticProperties.Description="Attach photo button" />
+                            <Button Style="{StaticResource SecondaryButtonStyle}"
+                                    Text="✅ Save Recipe"
+                                    Clicked="OnSaveRecipeClicked"
+                                    SemanticProperties.Description="Save recipe button" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+        <!-- Bottom navigation bar -->
+        <controls:StadiumBottomBar AbsoluteLayout.LayoutBounds="0.5,1,1,90"
+                                    AbsoluteLayout.LayoutFlags="WidthProportional,PositionProportional"
+                                    SemanticProperties.Description="Bottom navigation bar" />
+    </AbsoluteLayout>
+</ContentPage>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.CommentsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Comments"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Comments page for the selected recipe."
+             SemanticProperties.Hint="Type your comment and tap Send to post.">
+    <Grid Padding="10">
+        <!-- List of comments -->
+        <CollectionView x:Name="CommentsCollectionView"
+                        ItemsSource="{Binding Comments}"
+                        VerticalOptions="FillAndExpand"
+                        SemanticProperties.Description="List of comments">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" CornerRadius="8" HasShadow="True" BackgroundColor="{DynamicResource AppBackgroundColor}"
+                           SemanticProperties.Description="Comment card">
+                        <StackLayout>
+                            <Label Text="{Binding UserName}"
+                                   FontAttributes="Bold"
+                                   FontSize="{DynamicResource GlobalFontSize}"
+                                   TextColor="{DynamicResource AppTextColor}"
+                                   SemanticProperties.Description="Commenter name" />
+                            <Label Text="{Binding Text}"
+                                   FontSize="{DynamicResource GlobalFontSize}"
+                                   TextColor="{DynamicResource AppTextColor}"
+                                   SemanticProperties.Description="Comment text" />
+                            <Label Text="{Binding Timestamp, StringFormat='{0:G}'}"
+                                   FontSize="{DynamicResource GlobalFontSize}"
+                                   TextColor="Gray"
+                                   SemanticProperties.Description="Comment timestamp" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!-- Input area for new comments -->
+        <StackLayout Orientation="Horizontal" VerticalOptions="End" Padding="10"
+                     SemanticProperties.Description="Comment input area">
+            <Entry x:Name="CommentEntry"
+                   Placeholder="Add a comment..."
+                   HorizontalOptions="FillAndExpand"
+                   FontSize="{DynamicResource GlobalFontSize}"
+                   TextColor="{DynamicResource AppTextColor}"
+                   BackgroundColor="White"
+                   SemanticProperties.Hint="Type your comment here" />
+            <Button Text="Send"
+                    Clicked="OnSendCommentClicked"
+                    FontSize="{DynamicResource GlobalFontSize}"
+                    SemanticProperties.Description="Send comment button"
+                    SemanticProperties.Hint="Double tap to send comment" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.MapPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Nearby Stores"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Map page showing nearby stores with recenter and navigation controls"
+             SemanticProperties.Hint="Double tap a store to view details or use the recenter/back buttons">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryButtonBrush">Black</Color>
+            <Color x:Key="SecondaryButtonBrush">#FFA500</Color>
+            <LinearGradientBrush x:Key="PageBackgroundBrush" EndPoint="0,1">
+                <GradientStop Offset="0.0" Color="#F8F8F8" />
+                <GradientStop Offset="1.0" Color="#EAEAEA" />
+            </LinearGradientBrush>
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryButtonBrush}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="0,0,10,0" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <Setter.Value>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.95" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource SecondaryButtonBrush}" />
+            </Style>
+            <Style x:Key="PageLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="StoreCardStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BorderColor" Value="#DADADA" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <!-- Map section -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" SemanticProperties.Description="Map container">
+            <Grid>
+                <!-- Map loader indicator -->
+                <ActivityIndicator x:Name="MapLoader"
+                                   IsRunning="False"
+                                   IsVisible="False"
+                                   Color="#007AFF"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   SemanticProperties.Description="Map loading indicator" />
+                <!-- WebView for interactive map -->
+                <WebView x:Name="MapWebView"
+                         Opacity="0"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand"
+                         BackgroundColor="White"
+                         HeightRequest="300"
+                         SemanticProperties.Description="Interactive map displaying nearby grocery stores" />
+            </Grid>
+        </Grid>
+        <!-- Stores list and control buttons -->
+        <StackLayout Grid.Row="1" Spacing="10" Padding="10" SemanticProperties.Description="Stores list and control buttons">
+            <Label Text="Nearby Stores"
+                   FontSize="20"
+                   Margin="0,10,0,5"
+                   Style="{StaticResource PageLabelStyle}"
+                   SemanticProperties.HeadingLevel="Level1"
+                   SemanticProperties.Description="Section heading: Nearby Stores" />
+            <RefreshView x:Name="StoresRefreshView"
+                         Refreshing="OnRefresh"
+                         SemanticProperties.Description="Refresh view for store list">
+                <CollectionView x:Name="StoresCollectionView"
+                                SelectionMode="Single"
+                                SelectionChanged="OnStoreSelected"
+                                SemanticProperties.Description="List of nearby stores">
+                    <!-- Use an ItemTemplate to bind store properties -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource StoreCardStyle}">
+                                <StackLayout>
+                                    <!-- Binding to the store's Name property -->
+                                    <Label Text="{Binding Name}"
+                                           FontSize="16"
+                                           TextColor="{DynamicResource AppTextColor}" />
+                                    <!-- Optionally add additional details if available, e.g., coordinates -->
+                                    <Label Text="{Binding Latitude, StringFormat='Lat: {0:F4}'}" FontSize="12" TextColor="Gray"/>
+                                    <Label Text="{Binding Longitude, StringFormat='Lon: {0:F4}'}" FontSize="12" TextColor="Gray"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <!-- Control buttons -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" SemanticProperties.Description="Control buttons">
+                <Button Text="Recenter"
+                        Clicked="OnRecenterClicked"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        SemanticProperties.Description="Recenter map button"
+                        SemanticProperties.Hint="Double tap to recenter the map" />
+                <Button Text="Back"
+                        Clicked="OnBackClicked"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        SemanticProperties.Description="Back button"
+                        SemanticProperties.Hint="Double tap to return to the previous page" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

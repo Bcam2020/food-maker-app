@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.UserRecipeDetailPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Recipe Details"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Recipe details page. Displays full details of a recipe including image, ingredients, and instructions."
+             SemanticProperties.Hint="Double tap the volume icon to hear the recipe read aloud.">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Recipe Name -->
+            <Label x:Name="NameLabel"
+             FontSize="28"
+             FontAttributes="Bold"
+             TextColor="{DynamicResource AppTextColor}"
+             HorizontalOptions="Center"
+             SemanticProperties.HeadingLevel="Level1"
+             SemanticProperties.Description="Recipe name" />
+
+            <!-- Recipe Image Container -->
+            <Frame HasShadow="True"
+             CornerRadius="10"
+             Margin="0,0,0,10"
+             BackgroundColor="{DynamicResource AppFrameBackgroundColor}"
+             SemanticProperties.Description="Recipe image container">
+                <VerticalStackLayout>
+                    <Image x:Name="RecipeImage"
+                 HeightRequest="250"
+                 Aspect="AspectFill"
+                 HorizontalOptions="FillAndExpand"
+                 SemanticProperties.Description="Recipe image" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Ingredients Container -->
+            <Frame CornerRadius="10"
+             BackgroundColor="{DynamicResource AppFrameBackgroundColor}"
+             Padding="15"
+             HasShadow="True"
+             SemanticProperties.Description="Ingredients container">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Ingredients"
+                 FontSize="20"
+                 FontAttributes="Bold"
+                 TextColor="{DynamicResource AppTextColor}"
+                 SemanticProperties.Description="Ingredients label" />
+                    <Label x:Name="IngredientsLabel"
+                 FontSize="16"
+                 TextColor="{DynamicResource AppTextColor}"
+                 LineBreakMode="WordWrap"
+                 SemanticProperties.Description="List of ingredients" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Instructions Container -->
+            <Frame CornerRadius="10"
+             BackgroundColor="{DynamicResource AppFrameBackgroundColor}"
+             Padding="15"
+             HasShadow="True"
+             SemanticProperties.Description="Instructions container">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Instructions"
+                 FontSize="20"
+                 FontAttributes="Bold"
+                 TextColor="{DynamicResource AppTextColor}"
+                 SemanticProperties.Description="Instructions label" />
+                    <Label x:Name="InstructionsLabel"
+                 FontSize="16"
+                 TextColor="{DynamicResource AppTextColor}"
+                 LineBreakMode="WordWrap"
+                 SemanticProperties.Description="Step-by-step instructions" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Read Recipe Button -->
+            <Frame CornerRadius="20"
+             Padding="0"
+             HasShadow="False"
+             BackgroundColor="Transparent"
+             HorizontalOptions="Center"
+             SemanticProperties.Description="Read recipe button">
+                <Image Source="volume.png"
+               WidthRequest="32"
+               HeightRequest="32"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               SemanticProperties.Description="Volume icon. Double tap to read recipe aloud">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnReadRecipeClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

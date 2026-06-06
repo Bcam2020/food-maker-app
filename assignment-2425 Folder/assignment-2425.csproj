@@ -1,0 +1,216 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>assignment_2425</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>assignment-2425</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.assignment_2425</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FFFFFF" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\foodlogo.png" Resize="True" BaseSize="300,185" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AndroidResource Include="Platforms\Android\Resources\xml\file_paths.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiImage Remove="Resources\Images\Image1.png" />
+		<MauiImage Remove="Resources\Images\Image2.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\AppIcon\appicon.svg" />
+		<None Remove="Resources\Images\foodlogo.png" />
+		<None Remove="Resources\Images\Image1.png" />
+		<None Remove="Resources\Images\Image2.png" />
+		<None Remove="Resources\raw\map.html" />
+		<None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiSplashScreen Include="Resources\AppIcon\appicon.svg">
+			<Color>#808080</Color>
+			<BaseSize>400,400</BaseSize>
+		</MauiSplashScreen>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Byndyusoft.Net.Http.Json" Version="0.4.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.0" />
+		<PackageReference Include="Firebase.Auth" Version="1.0.0" />
+		<PackageReference Include="Firebase.Database" Version="1.0.0" />
+		<PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+		<PackageReference Include="FuzzySharp" Version="2.0.2" />
+		<PackageReference Include="Google.Cloud.Firestore" Version="3.9.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="SkiaSharp" Version="3.116.1" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+	</ItemGroup>
+
+	<!-- XAML codebehind linking -->
+	<ItemGroup>
+		<Compile Update="CameraPage.xaml.cs">
+			<DependentUpon>CameraPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="AddRecipePage.xaml.cs">
+			<DependentUpon>AddRecipePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Controls\StadiumTopBar.xaml.cs">
+		  <DependentUpon>StadiumTopBar.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Controls\StadiumBottomBar.xaml.cs">
+		  <DependentUpon>StadiumBottomBar.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="FavoritesPage.xaml.cs">
+			<DependentUpon>FavoritesPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="CommunityPage.xaml.cs">
+			<DependentUpon>CommunityPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="IngredientsPage.xaml.cs">
+			<DependentUpon>IngredientsPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="CommentsPage.xaml.cs">
+		  <DependentUpon>CommentsPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="ChatBubbleControl.xaml.cs">
+		  <DependentUpon>ChatBubbleControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\ChatBotPopup.xaml.cs">
+		  <DependentUpon>ChatBotPopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="UserRecipeDetailPage.xaml.cs">
+		  <DependentUpon>UserRecipeDetailPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="SearchUsersPage.xaml.cs">
+			<DependentUpon>SearchUsersPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="FriendsListPage.xaml.cs">
+			<DependentUpon>FriendsListPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="FriendRecipesPage.xaml.cs">
+			<DependentUpon>FriendRecipesPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="ProfilePage.xaml.cs">
+			<DependentUpon>ProfilePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="LoginPage.xaml.cs">
+			<DependentUpon>LoginPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="MapPage.xaml.cs">
+			<DependentUpon>%(Filename)</DependentUpon>
+		</Compile>
+		<Compile Update="RecipePage.xaml.cs">
+			<DependentUpon>RecipePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="SettingsPage.xaml.cs">
+			<DependentUpon>SettingsPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="CommunityPage.xaml.cs">
+			<DependentUpon>CommunityPage.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="CameraPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="AddRecipePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\StadiumTopBar.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\StadiumBottomBar.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="FavoritesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="IngredientsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="CommentsPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ChatBubbleControl.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ChatBotPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="UserRecipeDetailPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="SearchUsersPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="FriendsListPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="FriendRecipesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ProfilePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="LoginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="MapPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="RecipePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="SettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="CommunityPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+
+</Project>

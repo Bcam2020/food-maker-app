@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.LoginPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Login"
+             Shell.NavBarIsVisible="True"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Login page. Enter your email and password to log in."
+             SemanticProperties.Hint="Double tap a control to interact.">
+    <!-- Hide default back button -->
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryButtonBrush">Black</Color>
+            <Color x:Key="SecondaryButtonBrush">#FFA500</Color>
+            <LinearGradientBrush x:Key="PageBackgroundBrush" EndPoint="0,1">
+                <GradientStop Offset="0.0" Color="#F8F8F8" />
+                <GradientStop Offset="1.0" Color="#EAEAEA" />
+            </LinearGradientBrush>
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryButtonBrush}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <Setter.Value>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.95" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource SecondaryButtonBrush}" />
+            </Style>
+            <Style x:Key="PageLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+            </Style>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="{DynamicResource AppTextColor}" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="Margin" Value="0,5" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <!-- Custom back button -->
+        <ToolbarItem Text="Back" IconImageSource="back_icon.png" Order="Primary" Priority="0" Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+        <!-- Page title -->
+        <Label Text="Login"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Style="{StaticResource PageLabelStyle}"
+               SemanticProperties.HeadingLevel="Level1"
+               SemanticProperties.Description="Page title: Login" />
+
+        <!-- Email entry field -->
+        <Entry x:Name="EmailEntry"
+               Placeholder="Email"
+               Keyboard="Email"
+               Style="{StaticResource EntryStyle}"
+               SemanticProperties.Description="Email entry field"
+               SemanticProperties.Hint="Enter your email address" />
+
+        <!-- Password entry field -->
+        <Entry x:Name="PasswordEntry"
+               Placeholder="Password"
+               IsPassword="True"
+               Style="{StaticResource EntryStyle}"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               SemanticProperties.Description="Password entry field"
+               SemanticProperties.Hint="Enter your password" />
+
+        <!-- Login button -->
+        <Button Text="Login"
+                Clicked="OnLoginClicked"
+                Style="{StaticResource PrimaryButtonStyle}"
+                SemanticProperties.Description="Login button" />
+
+        <!-- Register button -->
+        <Button Text="Register"
+                Clicked="OnRegisterClicked"
+                Style="{StaticResource SecondaryButtonStyle}"
+                SemanticProperties.Description="Register button" />
+    </VerticalStackLayout>
+</ContentPage>

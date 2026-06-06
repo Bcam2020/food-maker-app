@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="assignment_2425.IngredientsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Enter Ingredients"
+             Background="{DynamicResource AppBackgroundColor}"
+             SemanticProperties.Description="Ingredients page. Add ingredients to search for recipes."
+             SemanticProperties.Hint="Enter ingredients and tap Find Recipes.">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryButtonBrush">Black</Color>
+            <Color x:Key="SecondaryButtonBrush">#FFA500</Color>
+            <LinearGradientBrush x:Key="PageBackgroundBrush" EndPoint="0,1">
+                <GradientStop Color="#F8F8F8" Offset="0.0"/>
+                <GradientStop Color="#EAEAEA" Offset="1.0"/>
+            </LinearGradientBrush>
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryButtonBrush}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="30" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="{DynamicResource GlobalFontSize}" />
+                <Setter Property="Padding" Value="15,10" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Margin" Value="0,10" />
+            </Style>
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource SecondaryButtonBrush}" />
+            </Style>
+            <Style x:Key="CardFrameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="30" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0,10" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Page title -->
+            <Label Text="Add Your Ingredients"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="{DynamicResource AppTextColor}"
+                   FontSize="{DynamicResource GlobalFontSize}"
+                   SemanticProperties.HeadingLevel="Level1"
+                   SemanticProperties.Description="Page title: Add Your Ingredients" />
+            <!-- Input container -->
+            <Frame Style="{StaticResource CardFrameStyle}"
+                   BackgroundColor="{DynamicResource AppFrameBackgroundColor}"
+                   BorderColor="#DADADA"
+                   Padding="15"
+                   CornerRadius="30"
+                   SemanticProperties.Description="Ingredient input container">
+                <Entry x:Name="IngredientEntry"
+                       Placeholder="e.g. Eggs, Milk"
+                       PlaceholderColor="#BDC3C7"
+                       TextColor="{DynamicResource AppTextColor}"
+                       FontSize="{DynamicResource GlobalFontSize}"
+                       BackgroundColor="Transparent"
+                       HorizontalOptions="FillAndExpand"
+                       SemanticProperties.Description="Ingredient entry field"
+                       SemanticProperties.Hint="Type an ingredient here" />
+            </Frame>
+            <!-- Add ingredient button -->
+            <Button x:Name="AddIngredientButton"
+                    Text="➕ Add Ingredient"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Clicked="OnAddIngredientClicked"
+                    SemanticProperties.Description="Add ingredient button"
+                    SemanticProperties.Hint="Double tap to add the ingredient" />
+            <!-- List of added ingredients -->
+            <CollectionView ItemsSource="{Binding Ingredients}"
+                            Margin="0,20,0,0"
+                            BackgroundColor="Transparent"
+                            SemanticProperties.Description="List of added ingredients">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5"
+                               BackgroundColor="{DynamicResource AppFrameBackgroundColor}"
+                               BorderColor="#DADADA"
+                               CornerRadius="12"
+                               HasShadow="True"
+                               SemanticProperties.Description="Ingredient card">
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="{Binding .}"
+                                       FontSize="{DynamicResource GlobalFontSize}"
+                                       TextColor="{DynamicResource AppTextColor}"
+                                       VerticalOptions="CenterAndExpand"
+                                       SemanticProperties.Description="Ingredient name" />
+                                <Button Text="❌ Remove"
+                                        Style="{StaticResource SecondaryButtonStyle}"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnRemoveIngredientClicked"
+                                        HorizontalOptions="EndAndExpand"
+                                        SemanticProperties.Description="Remove ingredient button"
+                                        SemanticProperties.Hint="Double tap to remove ingredient" />
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!-- Find recipes button -->
+            <Button x:Name="FindRecipesButton"
+                    Text="🍳 Find Recipes"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Clicked="OnFindRecipesClicked"
+                    SemanticProperties.Description="Find recipes button"
+                    SemanticProperties.Hint="Double tap to search for recipes based on added ingredients" />
+            <!-- Find nearby stores button -->
+            <Button x:Name="GetLocationButton"
+                    Text="📍 Find Nearby Stores"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Clicked="OnGetLocationClicked"
+                    SemanticProperties.Description="Find nearby stores button"
+                    SemanticProperties.Hint="Double tap to view nearby stores" />
+            <!-- Add recipe button -->
+            <Button x:Name="AddRecipeButton"
+                    Text="Make A Recipe"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Clicked="OnAddRecipeButtonClicked"
+                    SemanticProperties.Description="Make a recipe button"
+                    SemanticProperties.Hint="Double tap to navigate to add recipe page" />
+            <!-- Back button -->
+            <Button x:Name="BackButton"
+                    Text="← Back to Home"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Clicked="OnBackClicked"
+                    SemanticProperties.Description="Back to home button"
+                    SemanticProperties.Hint="Double tap to return to home page" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

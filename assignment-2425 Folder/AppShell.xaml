@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="assignment_2425.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:assignment_2425"
+       Title="Food Maker App"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.NavBarHasShadow="True">
+    <Shell.Resources>
+        <ResourceDictionary>
+            <!-- Toolbar color definition -->
+            <Color x:Key="ToolbarOrangeColor">#FFA500</Color>
+            <Style TargetType="Shell">
+                <Setter Property="BackgroundColor" Value="{StaticResource ToolbarOrangeColor}" />
+                <Setter Property="TitleColor" Value="White" />
+                <Setter Property="Shell.NavBarHasShadow" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+    <!-- Registered ShellContent routes -->
+    <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
+    <ShellContent Route="AddRecipePage" ContentTemplate="{DataTemplate local:AddRecipePage}" />
+    <ShellContent Route="CommunityPage" ContentTemplate="{DataTemplate local:CommunityPage}" />
+    <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
+    <ShellContent Route="FavoritesPage" ContentTemplate="{DataTemplate local:FavoritesPage}" />
+    <ShellContent Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}" />
+</Shell>
